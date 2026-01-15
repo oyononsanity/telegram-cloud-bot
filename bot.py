@@ -1,8 +1,8 @@
 import os
 import telebot
 from telebot.types import MenuButtonWebApp, WebAppInfo
-import threading
 from flask import Flask
+import threading
 
 TOKEN = os.getenv("BOT_TOKEN")
 WEB_URL = os.getenv("WEB_APP_URL")
@@ -21,7 +21,7 @@ bot.set_chat_menu_button(
 def start(message):
     bot.send_message(message.chat.id, "👇")
 
-# ---- Dummy Flask app to bind port for Render Web Service ----
+# Dummy Flask app to bind port
 app = Flask("")
 
 @app.route("/")
@@ -32,7 +32,7 @@ def run_flask():
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
 
-# ---- Run bot and Flask together ----
+# Run bot + Flask
 threading.Thread(target=run_flask).start()
 print("Bot running...")
 bot.infinity_polling()
